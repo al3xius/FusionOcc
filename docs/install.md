@@ -22,6 +22,10 @@ pip install mmdet==2.25.1 mmsegmentation==0.25.0
 ```shell
 pip install -r requirements.txt
 ```
+download torch-scatter=2.0.9 from https://pytorch-geometric.com/whl/
+```shell
+pip install torch_scatter-2.0.9-cp38-cp38-linux_x86_64.whl
+```
 
 **5. Intall FusionOcc**
 
