@@ -2,7 +2,7 @@ pycuda
 lyft_dataset_sdk
 networkx==2.2
 numba==0.53.0
-numpy
+numpy==1.26.4
 nuscenes-devkit
 plyfile
 scikit-image
