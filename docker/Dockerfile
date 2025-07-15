@@ -12,7 +12,11 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
      /bin/bash ~/miniconda.sh -b -p /opt/conda
 # Put conda in path so we can use conda activate
 ENV PATH=$CONDA_DIR/bin:$PATH
-RUN conda install python=3.8
+RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+     conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+
+RUN conda create -n py38 python=3.8 -y
+SHELL ["conda", "run", "-n", "py38", "/bin/bash", "-c"]
 
 
 RUN pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
