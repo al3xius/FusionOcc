@@ -3,7 +3,11 @@
 {
 	"name": "Roadrunner",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "fusionocc:latest"
+	"image": "fusionocc:latest",
+
+	"runArgs": [
+		"--gpus=all"
+	],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -19,6 +23,10 @@
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
+
+	"mounts": [
+		"source=d:/roadrunner,target=/roadrunner/data,type=bind,consistency=cached"
+	]
 }
 
 // {
