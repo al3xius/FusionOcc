@@ -8,6 +8,11 @@ FusionOcc is a new multi-modal fusion network for 3D occupancy prediction by fus
 
 ## Getting Started
 
+- Docker
+```shell
+docker build -f .\docker\Dockerfile -t fusionocc .
+````
+
 - [Installation](docs/install.md)
 ```
 # main prerequisites 

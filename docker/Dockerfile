@@ -22,3 +22,8 @@ RUN pip install mmcv-full==1.5.3 -f https://download.openmmlab.com/mmcv/dist/cu1
 RUN pip install mmdet==2.25.1 mmsegmentation==0.25.0
 
 RUN pip install torch-scatter==2.0.9
+
+WORKDIR /roadrunner
+COPY ../ /roadrunner
+
+RUN pip install -r /roadrunner/requirements.txt

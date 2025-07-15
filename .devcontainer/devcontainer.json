@@ -1,0 +1,8 @@
+{
+  "name": "Roadrunner Dev Container",
+  "image": "fusionocc",  // your built image tag
+  "workspaceFolder": "/roadrunner",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/roadrunner,type=bind,consistency=cached"
+  ]
+}
