@@ -8,3 +8,4 @@ plyfile
 scikit-image
 tensorboard
 trimesh==2.35.39
+yapf==0.40.1

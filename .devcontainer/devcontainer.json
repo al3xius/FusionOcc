@@ -6,7 +6,8 @@
 	"image": "fusionocc:latest",
 
 	"runArgs": [
-		"--gpus=all"
+		"--gpus=all",
+		"--shm-size=8g"
 	],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -16,7 +17,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "conda init && conda activate py38 && pip install -v -e .",
+	"postCreateCommand": "/opt/conda/envs/py38/bin/pip install -v -e .",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
