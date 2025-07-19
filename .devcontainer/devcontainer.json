@@ -25,7 +25,7 @@
 	// "remoteUser": "root"
 
 	"mounts": [
-		"source=d:/roadrunner,target=/roadrunner/data,type=bind,consistency=cached"
+		"source=d:/roadrunner,target=/workspace/FusionOcc/data,type=bind,consistency=cached"
 	]
 }
 
