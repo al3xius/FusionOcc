@@ -284,10 +284,11 @@ custom_hooks = [
         init_updates=10560,
         priority='NORMAL',
     ),
-    dict(
-        type='SyncbnControlHook',
-        syncbn_start_epoch=0,
-    ),
+    # Removed because of not destributed training
+    # dict(
+    #     type='SyncbnControlHook',
+    #     syncbn_start_epoch=0,
+    # ),
 ]
 
 # load_from = "../../ckpt/fusion_occ_mask.pth"

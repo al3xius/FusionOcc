@@ -4,3 +4,5 @@ __pycache__
 *.so
 build
 data/
+work_dirs/
+wandb/

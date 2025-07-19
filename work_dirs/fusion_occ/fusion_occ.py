@@ -549,9 +549,17 @@ evaluation = dict(
     ])
 checkpoint_config = dict(interval=1)
 log_config = dict(
-    interval=50,
-    hooks=[dict(type='TextLoggerHook'),
-           dict(type='TensorboardLoggerHook')])
+    interval=1,
+    hooks=[
+        dict(type='TextLoggerHook'),
+        dict(type='TensorboardLoggerHook'),
+        dict(
+            type='WandbLoggerHook',
+            init_kwargs=dict(
+                project='fusionocc',
+                name='fusionocc-run-1',
+                entity='al3xius-yt-technische-universit-t-graz'))
+    ])
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = './work_dirs/fusion_occ'
@@ -796,7 +804,6 @@ lr_config = dict(
     min_lr_ratio=0.001)
 runner = dict(type='EpochBasedRunner', max_epochs=24)
 custom_hooks = [
-    dict(type='MEGVIIEMAHook', init_updates=10560, priority='NORMAL'),
-    dict(type='SyncbnControlHook', syncbn_start_epoch=0)
+    dict(type='MEGVIIEMAHook', init_updates=10560, priority='NORMAL')
 ]
 gpu_ids = [0]
