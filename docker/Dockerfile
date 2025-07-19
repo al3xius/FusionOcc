@@ -31,3 +31,6 @@ WORKDIR /roadrunner
 COPY ../ /roadrunner
 
 RUN pip install -r /roadrunner/requirements.txt
+
+RUN echo "conda init" >> ~/.bashrc
+RUN echo "conda activate py38" >> ~/.bashrc

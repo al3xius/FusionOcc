@@ -16,7 +16,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip install -v -e .",
+	"postCreateCommand": "conda init && conda activate py38 && pip install -v -e .",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
@@ -25,7 +25,8 @@
 	// "remoteUser": "root"
 
 	"mounts": [
-		"source=d:/roadrunner,target=/workspace/FusionOcc/data,type=bind,consistency=cached"
+		"source=d:/data,target=/data,type=bind,consistency=cached"
+		// "source=d:/roadrunner/dataset,target=/workspace/FusionOcc/data,type=bind,consistency=cached"
 	]
 }
 
