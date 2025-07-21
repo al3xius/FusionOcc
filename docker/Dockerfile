@@ -22,7 +22,7 @@ SHELL ["conda", "run", "-n", "py38", "/bin/bash", "-c"]
 RUN pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
 
 ### install mmcv-full
-RUN pip install mmcv-full==1.6.0 -f https://download.openmmlab.com/mmcv/dist/cu11.3/torch1.10.0/index.html
+RUN pip install mmcv-full==1.5.3 -f https://download.openmmlab.com/mmcv/dist/cu11.3/torch1.10.0/index.html
 RUN pip install mmdet==2.25.1 mmsegmentation==0.25.0
 
 RUN pip install torch-scatter==2.0.9

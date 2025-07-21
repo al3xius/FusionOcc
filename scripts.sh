@@ -1,6 +1,6 @@
 # setup
-pip install -v -e .
-wandb login
+/opt/conda/envs/py38/bin/pip install -v -e .
+/opt/conda/envs/py38/bin/wandb login
 ln -s /data/dataset/nuscenes_real ./data/nuscenes
 
 # prepare

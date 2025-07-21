@@ -41,3 +41,25 @@ FusionOcc
 |   |   ├── fusionocc-nuscenes_infos_train.pkl
 |   |   ├── fusionocc-nuscenes_infos_val.pkl
 ```
+
+
+Required for preperation:
+```
+FusionOcc
+├── data
+│   ├── nuscenes
+│   │   ├── lidarseg
+│   │   ├── maps
+
+```
+
+Required for training:
+```
+FusionOcc
+├── data
+│   ├── nuscenes
+│   │   ├── imgseg
+│   │   ├── gts
+│   │   ├── samples
+
+```
