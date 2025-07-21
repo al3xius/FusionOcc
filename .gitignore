@@ -3,6 +3,6 @@ __pycache__
 *.egg-info
 *.so
 build
-data/
+data/*
 work_dirs/
 wandb/
