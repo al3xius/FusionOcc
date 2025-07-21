@@ -33,13 +33,5 @@ COPY ../ /roadrunner
 
 RUN pip install -r /roadrunner/requirements.txt
 
-RUN  conda clean -afyt && \
-     pip cache purge && \
-     apt-get remove -y wget && \
-     apt-get purge -y build-essential && \
-     apt-get autoremove -y && \
-     apt-get clean && \
-     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 RUN echo "conda init" >> ~/.bashrc
 RUN echo "conda activate py38" >> ~/.bashrc

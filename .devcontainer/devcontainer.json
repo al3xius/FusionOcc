@@ -3,7 +3,7 @@
 {
 	"name": "Roadrunner",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "fusionocc_base:latest",
+	"image": "fusionocc:latest",
 
 	"runArgs": [
 		"--gpus=all",
@@ -26,7 +26,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip install -v -e .",
+	"postCreateCommand": "/opt/conda/envs/py38/bin/pip install -v -e .",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
