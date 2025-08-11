@@ -42,6 +42,10 @@ FusionOcc
 |   |   ├── fusionocc-nuscenes_infos_train.pkl
 |   |   ├── fusionocc-nuscenes_infos_val.pkl
 ```
+## Link data
+`ln -s /path/to/custom /path/to/FusionOcc/data/custom`
+
+## Prepare data
 
 
 ## Model Zoo
@@ -71,6 +75,11 @@ Modify the "load_from" path at the end of the config file to load pre-trained we
 
 ```bash
 ./tools/dist_train.sh $config num_gpu
+```
+
+Custom training
+```
+./tools/train.py configs/fusion_occ/fusion_occ_custom.py 
 ```
 
 To obtain the version without using mask, simply modify the use_mask field in the config file to False and train several epochs.
