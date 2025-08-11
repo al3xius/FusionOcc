@@ -12,7 +12,6 @@ log_config = dict(
             type='WandbLoggerHook',
             init_kwargs=dict(
                 project='fusionocc',  # your wandb project name
-                name='fusionocc-run-1',  # custom run name
                 entity='al3xius-yt-technische-universit-t-graz',  # optional
             ),
             # log_checkpoint=True,

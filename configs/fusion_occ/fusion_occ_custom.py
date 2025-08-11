@@ -302,7 +302,7 @@ custom_hooks = [
 
 # Visualization
 default_hooks = dict(
-    visualization=dict(type='Det3DVisualizationHook', draw=True))
+    visualization=dict(type='Det3DVisualizationHook', draw=True, interval=1, show=False))
 
 vis_backends = [dict(type='LocalVisBackend'),
                 dict(type='WandbVisBackend')]
