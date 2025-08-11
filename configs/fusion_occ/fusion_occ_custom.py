@@ -5,8 +5,9 @@ _base_ = ['../_base_/datasets/nus-3d.py', '../_base_/default_runtime.py']
 point_cloud_range = [-5, -5, -5, 5, 5, 5]
 # For nuScenes we usually do 10-class detection
 class_names = [
-    'car', 'truck', 'construction_vehicle', 'bus', 'trailer', 'barrier',
-    'motorcycle', 'bicycle', 'pedestrian', 'traffic_cone'
+    'animal', 'human', 'movable_object', 'static_object', 'rock', 'vehicle',
+    'paved', 'unpaved', 'water', 'grass', "tree", 'tree_canopy', 'bush', 'vegetation_other',
+    'building', 'bridge', 'bridge'
 ]
 
 data_config = {
@@ -31,12 +32,17 @@ grid_config = {
     'x': [-5, 5, 0.1],
     'y': [-5, 5, 0.1],
     'z': [-5, 5, 0.1],
-    'depth': [1.0, 45.0, 0.5], #?
+    'depth': [1.0, 20.0, 0.25], #?
 }
 
 use_mask = True  # Set to False when not using the mask.
 
-voxel_size = [0.05, 0.05, 0.05]
+# Calculate based on grid_config
+voxel_size_constant = 1.25 # Unknown where this comes from
+voxel_size = [
+    voxel_size_constant / ((grid_config['x'][1]-grid_config['x'][0]) / grid_config['x'][2]), 
+    voxel_size_constant / ((grid_config['y'][1]-grid_config['y'][0]) / grid_config['y'][2]), 
+    voxel_size_constant / ((grid_config['z'][1]-grid_config['z'][0]) / grid_config['z'][2])]
 
 img_backbone_out_channel = 256
 feature_channel = 32
@@ -57,6 +63,7 @@ model = dict(
     align_after_view_transformation=True,
     num_adj=len(range(*multi_adj_frame_id_cfg)),
     fuse_loss_weight=0.1,
+    num_classes=num_classes,
     img_backbone=dict(
         type='SwinTransformer',
         pretrain_img_size=224,
@@ -96,7 +103,7 @@ model = dict(
         input_size=data_config['input_size'],
         in_channels=img_backbone_out_channel,
         mid_channels=128,
-        depth_channels=88,
+        depth_channels=int((grid_config['depth'][1]-grid_config['depth'][0])/grid_config['depth'][2]),
         is_train=True,  # set to False during inference
         out_channels=img_channels,
         sid=False,
@@ -243,14 +250,14 @@ share_data_config = dict(
 
 test_data_config = dict(
     pipeline=test_pipeline,
-    ann_file=data_root + 'fusionocc-nuscenes_infos_val.pkl')
+    ann_file=data_root + 'fusionocc-custom_infos_val.pkl')
 
 data = dict(
     samples_per_gpu=1,
     workers_per_gpu=4,
     train=dict(
         data_root=data_root,
-        ann_file=data_root + 'fusionocc-nuscenes_infos_train.pkl',
+        ann_file=data_root + 'fusionocc-custom_infos_train.pkl',
         pipeline=train_pipeline,
         classes=class_names,
         test_mode=False,
@@ -291,3 +298,13 @@ custom_hooks = [
 ]
 
 # load_from = "../../ckpt/fusion_occ_mask.pth"
+
+
+# Visualization
+default_hooks = dict(
+    visualization=dict(type='Det3DVisualizationHook', draw=True))
+
+vis_backends = [dict(type='LocalVisBackend'),
+                dict(type='WandbVisBackend')]
+visualizer = dict(
+    type='Det3DLocalVisualizer', vis_backends=vis_backends, name='visualizer')

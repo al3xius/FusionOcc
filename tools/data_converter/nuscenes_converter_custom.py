@@ -23,6 +23,8 @@ nus_attributes = ('cycle.with_rider', 'cycle.without_rider',
                   'pedestrian.sitting_lying_down', 'vehicle.moving',
                   'vehicle.parked', 'vehicle.stopped', 'None')
 
+val_split = 0.25
+
 
 def create_nuscenes_infos(root_path,
                           info_prefix,
@@ -45,6 +47,7 @@ def create_nuscenes_infos(root_path,
     from nuscenes.utils import splits
     available_vers = ['v1.0-trainval', 'v1.0-test', 'v1.0-mini']
     assert version in available_vers
+    
     if version == 'v1.0-trainval':
         train_scenes = splits.train
         val_scenes = splits.val
@@ -59,16 +62,25 @@ def create_nuscenes_infos(root_path,
 
     # filter existing scenes.
     available_scenes = get_available_scenes(nusc)
-    available_scene_names = [s['name'] for s in available_scenes]
-    train_scenes = list(
-        filter(lambda x: x in available_scene_names, train_scenes))
-    val_scenes = list(filter(lambda x: x in available_scene_names, val_scenes))
+    # split scenes
+    if len(available_scenes) == 0:
+        raise ValueError('No available scenes found in the dataset.')
+    if len(available_scenes) == 1:
+        print("WARN: Only one scene available. Using it for train and val. This is just for debugging!")
+        train_scenes = available_scenes
+        val_scenes = available_scenes
+    else:
+        train_scene_count = int(len(available_scenes) * (1-val_split))
+        train_scenes = available_scenes[:train_scene_count]
+        val_scenes = available_scenes[train_scene_count:]
+    
+    
     train_scenes = set([
-        available_scenes[available_scene_names.index(s)]['token']
+        s['token']
         for s in train_scenes
     ])
     val_scenes = set([
-        available_scenes[available_scene_names.index(s)]['token']
+        s['token']
         for s in val_scenes
     ])
 
@@ -365,7 +377,7 @@ def export_2d_annotation(root_path, info_path, version, mono3d=True):
             (height, width, _) = mmcv.imread(cam_info['data_path']).shape
             coco_2d_dict['images'].append(
                 dict(
-                    file_name=cam_info['data_path'].split('data/nuscenes/')
+                    file_name=cam_info['data_path'].split('data/custom/')
                     [-1],
                     id=cam_info['sample_data_token'],
                     token=info['token'],

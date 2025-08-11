@@ -153,6 +153,7 @@ class FusionOCC(FusionDepthSeg):
         input_depth = sparse_depth
         img_3d_feat_feat, depth_key_frame, seg_key_frame = self.extract_img_3d_feat(
             img_inputs=img_inputs, input_depth=input_depth)
+
         fusion_feat = torch.cat([img_3d_feat_feat, lidar_feat], dim=1)
         fusion_feat = self.occ_encoder(fusion_feat)
 
@@ -168,7 +169,7 @@ class FusionOCC(FusionDepthSeg):
         voxel_semantics = kwargs['voxel_semantics']
         mask_camera = kwargs['mask_camera']
 
-        assert voxel_semantics.min() >= 0 and voxel_semantics.max() <= 17
+        assert voxel_semantics.min() >= 0 and voxel_semantics.max() <= (self.num_classes - 1)
         loss_occ = self.loss_single(voxel_semantics, mask_camera, occ_pred)
         losses.update(loss_occ)
         return losses
